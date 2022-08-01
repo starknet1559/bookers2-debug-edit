@@ -1,0 +1,47 @@
+<div class='container'>
+  <div class='row'>
+    <div class='col-md-3'>
+      <h2>User info</h2>
+      <%= render 'users/info', user: @user %>
+      <h2 class="mt-3">New book</h2>
+      <%= render 'form', book: @books %>
+    </div>
+    <div class='col-md-8 offset-md-1'>
+  		<h2>Book detail</h2>
+  		<table class='table'>
+  		  <tr>
+          <td><%= link_to user_path(@user.id) do %>
+            <%= image_tag @user.get_profile_image(100,100) %><br>
+            <%= @book.user.name %>
+            <% end %>
+          </td>
+          <td>
+            <%= link_to book_path(@book.id) do %>
+              <%= @book.title %>
+            <% end %>
+          </td>
+          <td><%= @book.body %></td>
+          <!--いいね機能-->
+          <td class="favorite-btn_<%= @book.id %>">
+            <%= render "favorites/favorite-btn", book: @book %>
+          </td>
+          <td>
+            <p>コメント数:<%= @book.book_comments.count %></p>
+          </td>
+          <% if @book.user == current_user %>
+            <td><%= link_to 'Edit', edit_book_path(@book.id), class: "btn btn-sm btn-success" %></td>
+            <td><%= link_to 'Destroy', book_path(@book.id), method: :delete, data: { confirm: '本当に消しますか？' }, class: "btn btn-sm btn-danger"%></td>
+          <% end %>
+        </tr>
+      </table>
+      <!--コメントの一覧部分-->
+      <div class="comments-area">
+      <%= render "book_comments/index", book: @book %>
+      </div>
+      <!--コメントのフォーム部分-->
+      <div class= "new-comment">
+      <%= render "book_comments/form", book: @book, book_comment: @book_comment %>
+      </div>
+    </div>
+  </div>
+</div>
