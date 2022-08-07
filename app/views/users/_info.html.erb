@@ -32,6 +32,21 @@
    <% else %>
      <td><%= link_to "フォローする",user_relationships_path(user.id),method: :post, class: 'btn btn-primary' %></td>
    <% end %>
+   <!--chatbtn作成--><!--相互フォローの場合-->
+   <% if (current_user.followed_by? user) && (user.followed_by? current_user)  %>
+   <!--既にチャットルームが存在する場合-->
+    <% if isRoom == true %>
+      <p class="user-show-room"><a href="/rooms/<%= roomId %>" class="btn btn-primary btn-lg">チャットへ</a>
+    <!--false(チャットがまだ存在しない時)の場合-->
+    <% else %>
+    <%= form_with room do |f| %>
+      <%= fields_for entry do |e| %>
+        <%= e.hidden_field :user_id, value: user.id %>
+      <% end %>
+      <%= f.submit "チャットを始める", class:"btn btn-primary btn-lg user-show-chat"%>
+    <% end %>
+   <% end %>
+   <% end %>
  <% end %>
 </div>
 <div class='row'>
