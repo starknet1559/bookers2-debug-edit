@@ -36,14 +36,14 @@
    <% if (current_user.followed_by? user) && (user.followed_by? current_user)  %>
    <!--既にチャットルームが存在する場合-->
     <% if isRoom == true %>
-      <p class="user-show-room"><a href="/rooms/<%= roomId %>" class="btn btn-primary btn-lg">チャットへ</a>
+     <td><%= link_to "チャットへ",room_path(roomId), class: 'btn btn-primary' %></td>
     <!--false(チャットがまだ存在しない時)の場合-->
     <% else %>
-    <%= form_with room do |f| %>
+    <%= form_with model: room do |f| %>
       <%= fields_for entry do |e| %>
         <%= e.hidden_field :user_id, value: user.id %>
       <% end %>
-      <%= f.submit "チャットを始める", class:"btn btn-primary btn-lg user-show-chat"%>
+      <%= f.submit "チャットを始める", class:"btn btn-primary"%>
     <% end %>
    <% end %>
    <% end %>

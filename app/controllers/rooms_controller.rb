@@ -17,5 +17,5 @@ def show
     else
       redirect_back(fallback_location: root_path)
     end
-  end
+end
 end

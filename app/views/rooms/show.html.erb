@@ -1,10 +1,13 @@
+<div class="left-button">
+  <%= link_to "User一覧に戻る", users_path, class: 'edit-link' %>
+</div>
 <% @entries.each do |e| %>
   <div class="user-name">
-    <strong>
-      <%= image_tag e.user.get_profile_image(100,100) %>
-      <%= e.user.name %>さん
-    </strong>
+    <% unless e.user_id == current_user.id %>
+    <h2><%= e.user.name %>さんとのチャット</h2>
+    <% end %>
   </div>
+<% end %>
 
   <div class="chat">
     <% if @messages.present? %>
@@ -12,6 +15,7 @@
         <div class="chat-box">
           <div class="chat-face">
             <%= image_tag m.user.get_profile_image(50,50) %>
+            <%= m.user.name %>
           </div>
           <div class="chat-hukidashi">
             <strong><%= m.content %></strong><br>
@@ -23,7 +27,7 @@
   </div>
 
   <div class="post">
-    <%= form_with @message do |f| %>
+    <%= form_with model: @message do |f| %>
       <%= f.text_field :content, size: 70, class:"form-text-field" %>
       <%= f.hidden_field :room_id, value: @room.id %>
       <%= f.submit "投稿", class: 'form-submit'%>

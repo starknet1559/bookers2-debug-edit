@@ -6,7 +6,8 @@
       <th>Opinion</th>
       <th></th>
       <th></th>
-      <th colspan="5"></th>
+      <th></th>
+      <th colspan="6"></th>
     </tr>
   </thead>
   <tbody>
@@ -25,7 +26,10 @@
           <%= render "favorites/favorite-btn", book: book %>
         </td>
         <td>
-          <%#= link_to "#{book.book_comments.count}コメント",book_path(book) %>
+          <%= link_to "#{book.book_comments.count}コメント",book_path(book) %>
+        </td>
+        <td>
+          <p>閲覧数:<%= book.impressionist_count(:filter=>:session_hash) %></p>
         </td>
       </tr>
     <% end %>

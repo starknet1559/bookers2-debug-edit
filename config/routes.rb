@@ -18,7 +18,8 @@ end
     get :followers, on: :member
 end
 
+  resources :rooms, only: [:create, :show]
   resources :messages, only: [:create]
-  resources :romms, only: [:create, :show]
+
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
